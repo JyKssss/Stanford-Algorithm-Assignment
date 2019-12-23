@@ -15,7 +15,7 @@ public class CountInversion {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		int[] preData = readTxt("C:/Users/TAN/Desktop/IntegerArray.txt");
+		int[] preData = readTxt("IntegerArray.txt");
 		int[] sorted = counteMerge(preData);
 		System.out.println(inversionNum);
 //		System.out.println(sorted[99999]);
