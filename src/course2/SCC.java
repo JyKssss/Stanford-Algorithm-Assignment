@@ -17,7 +17,7 @@ public class SCC {
 	
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		ArrayList<node> graph = readTxt("C:/Users/TAN/Desktop/stanford_alg/input_mostlyCycles_33_1600.txt");
+		ArrayList<node> graph = readTxt("SCC.txt");
 		dfs_Loop(graph);
 		scc.clear();
 		ArrayList<node> secondGraph = sortNodes(graph);
