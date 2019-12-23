@@ -11,7 +11,7 @@ public class QuickSort {
 	static long numComparsion =0;
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		int[] inputArray = readTxt("C:/Users/TAN/Desktop/QuickSort.txt");
+		int[] inputArray = readTxt("QuickSort.txt");
 		numComparsion+=inputArray.length-1;
 		int[] outputArray = firstQuicksort(inputArray);
 		
