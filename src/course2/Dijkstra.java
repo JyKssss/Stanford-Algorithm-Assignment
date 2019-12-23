@@ -14,7 +14,7 @@ public class Dijkstra {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		ArrayList<Vertex> graph = new ArrayList<>();
-		graph = readTxt("C:/Users/TAN/Desktop/stanford_alg/dijkstraData.txt");
+		graph = readTxt("dijkstraData.txt");
 		HashMap<Integer,Vertex> hashGraph = createHashmapGraph(graph);
 		int[] target = {7,37,59,82,99,115,133,165,188,197};
 		for (int i = 0; i < target.length; i++) {
