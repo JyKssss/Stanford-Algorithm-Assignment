@@ -10,7 +10,7 @@ public class MedianMaintenance {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		ArrayList<Integer> data = readTxt("Median.txt");
+		ArrayList<Integer> data = readTxt("C:/Users/TAN/Desktop/stanford_alg/Median.txt");
 		ArrayList<Integer> maxHeap = new ArrayList<>();
 		ArrayList<Integer> minHeap = new ArrayList<>();
 		ArrayList<Integer> median = new ArrayList<>(); 

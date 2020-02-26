@@ -12,7 +12,7 @@ public class kargerMinCut {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		ArrayList<ArrayList<String>> graph = readTxt("kargerMinCut.txt");
+		ArrayList<ArrayList<String>> graph = readTxt("C:/Users/TAN/Desktop/stanford_alg/kargerMinCut.txt");
 		int min = Integer.MAX_VALUE;
 		int times = (int) (graph.size()*graph.size()*(Math.log(graph.size())));
 		for (int i = 0; i <times; i++) {
