@@ -14,7 +14,7 @@ public class JohnsonASAP {
 	
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		ArrayList<edge> edgeList = readTxt("C:\\Users\\Junyuan Tan\\Desktop\\stanford_alg\\g1.txt");
+		ArrayList<edge> edgeList = readTxt("C:\\Users\\Junyuan Tan\\Desktop\\stanford_alg\\input_random_6_4.txt");
 		ArrayList<node> nodeList = initialNodes(nodeNum, edgeList);
 		ArrayList<node> dijkstraList = new ArrayList<node>();
 		int min =Integer.MAX_VALUE;
@@ -22,10 +22,15 @@ public class JohnsonASAP {
 		int[] reWeightArray = Bellman_Ford.bellmanFord(nodeList, nodeList.size());
 		reWeight(nodeList,reWeightArray);
 		removeSource(nodeList);
+		
 		for (node startNode : nodeList) {
 			dijkstraList = DijkstraDirected.Dijkstra(nodeList, startNode.nodeId);
+			System.out.println(dijkstraList.size());
 			min = min < returnMin(dijkstraList, reWeightArray, startNode.nodeId) ? min : returnMin(dijkstraList, reWeightArray, startNode.nodeId);
+			System.out.println(min);
+			resetDijkstraDistance(nodeList);
 		}
+		System.out.println("最小值是 ： " + min);
 	}
 	
 	private static ArrayList<edge> readTxt(String txtpath) throws IOException {
@@ -61,7 +66,7 @@ public class JohnsonASAP {
 			distance = edge.getDistance();
 			headNode = nodelist.get(head -1);
 			tailnode = nodelist.get(tail-1);
-			headNode.addIn(tailnode,distance);
+			headNode.addOut(tailnode,distance);
 			tailnode.addIn(headNode,distance);
 		}
 		return nodelist;
@@ -69,12 +74,12 @@ public class JohnsonASAP {
 	}
 	
 	private static void addSource(ArrayList<node> nodeLists) {
-		node sourceNode = new node(nodeLists.size()+1); 
+		node sourceNode = new node(nodeLists.size()+1); 		
 		for (node node : nodeLists) {
 			node.addIn(sourceNode, 0);
 			sourceNode.addOut(node, 0);
 		}
-		
+		nodeLists.add(sourceNode);
 	}
 	//改变权重
 	private static void reWeight(ArrayList<node> nodesList , int[] reWeightArray) {
@@ -106,6 +111,7 @@ public class JohnsonASAP {
 	private static void resetDijkstraDistance(ArrayList<node> nodesList ) {
 		for (node node : nodesList) {
 			node.dijkDistance =0;
+			node.explored =false;
 		}
 	}
 	
@@ -167,7 +173,7 @@ class node implements Comparable<node>{
 		this.inNodes = new HashMap<node, Integer>();
 		this.outNodes = new HashMap<node, Integer>();
 		this.explored = false;
-		this.dijkDistance = Integer.MAX_VALUE;
+		this.dijkDistance = Integer.MAX_VALUE/3;
 	}
 	public HashMap<node, Integer> getINodes() {
 		return this.inNodes;
