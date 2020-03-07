@@ -32,15 +32,16 @@ public class Bellman_Ford {
 				if (curMatrix[j]!= preMatrix[j]) {
 					earlyStop++;
 				}
-				//在这里可以加提前终止条件
+				
 			}
+			//在这里可以加提前终止条件
 			preMatrix = curMatrix;
 			curMatrix = new int[nodeNum];
 			if (earlyStop==0) {
 				System.out.println("提前终止");
 				break;
 			}
-			System.out.println(i +" : "+preMatrix[1]);
+			System.out.println(i +" : "+preMatrix[0]);
 			
 			//判断是否含有Negative Circle
 			if (i==nodeNum-1 && earlyStop!=0) {
@@ -53,10 +54,12 @@ public class Bellman_Ford {
 	
 	private static int findMinIn(node curNode, int[]pre) {
 		HashMap<node, Integer> inNodes = curNode.getINodes();
+		
 		int dis1,dis2;
-		int finalDis = Integer.MAX_VALUE;
+		int finalDis = Integer.MAX_VALUE/3;
 		// 注意整数溢出
 		for (node keyNode : inNodes.keySet()) {
+//			System.out.println(keyNode.nodeId);
 			dis1 = inNodes.get(keyNode);
 			dis2 = pre[keyNode.nodeId-1];
 			if (dis1+dis2 < finalDis) {

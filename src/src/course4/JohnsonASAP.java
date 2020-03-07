@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+
+
 import course4.Bellman_Ford;
 import course4.DijkstraDirected;
 public class JohnsonASAP {
@@ -14,7 +17,7 @@ public class JohnsonASAP {
 	
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		ArrayList<edge> edgeList = readTxt("C:\\Users\\Junyuan Tan\\Desktop\\stanford_alg\\input_random_6_4.txt");
+		ArrayList<edge> edgeList = readTxt("C:\\Users\\Junyuan Tan\\Desktop\\stanford_alg\\g3.txt");
 		ArrayList<node> nodeList = initialNodes(nodeNum, edgeList);
 		ArrayList<node> dijkstraList = new ArrayList<node>();
 		int min =Integer.MAX_VALUE;
@@ -22,14 +25,20 @@ public class JohnsonASAP {
 		int[] reWeightArray = Bellman_Ford.bellmanFord(nodeList, nodeList.size());
 		reWeight(nodeList,reWeightArray);
 		removeSource(nodeList);
-		
-		for (node startNode : nodeList) {
-			dijkstraList = DijkstraDirected.Dijkstra(nodeList, startNode.nodeId);
-			System.out.println(dijkstraList.size());
-			min = min < returnMin(dijkstraList, reWeightArray, startNode.nodeId) ? min : returnMin(dijkstraList, reWeightArray, startNode.nodeId);
-			System.out.println(min);
-			resetDijkstraDistance(nodeList);
+		for (int i = 0; i < reWeightArray.length; i++) {
+			System.out.println(i+1+" 权重为 "+reWeightArray[i]);
 		}
+		
+		Iterator<node> startnodeIt = nodeList.iterator();
+		while (startnodeIt.hasNext()) {
+			node startNode = startnodeIt.next();
+			dijkstraList = DijkstraDirected.Dijkstra(nodeList, startNode.nodeId);
+			int currentRoundMin = returnMin(dijkstraList, reWeightArray, startNode);
+			min = min < currentRoundMin ? min : currentRoundMin;
+			resetDijkstraDistance(nodeList);
+			System.out.println(nodeList.size());
+		}
+
 		System.out.println("最小值是 ： " + min);
 	}
 	
@@ -66,8 +75,8 @@ public class JohnsonASAP {
 			distance = edge.getDistance();
 			headNode = nodelist.get(head -1);
 			tailnode = nodelist.get(tail-1);
-			headNode.addOut(tailnode,distance);
-			tailnode.addIn(headNode,distance);
+			headNode.addIn(tailnode,distance);
+			tailnode.addOut(headNode,distance);
 		}
 		return nodelist;
 		
@@ -89,11 +98,13 @@ public class JohnsonASAP {
 			for (node inNode : inNodes.keySet()) {
 				int oldDis =inNodes.get(inNode);
 				inNodes.replace(inNode, oldDis+reWeightArray[inNode.nodeId-1]-reWeightArray[node.nodeId-1]);
+//				System.out.println(inNode.nodeId+" to "+ node.nodeId +" = " + inNodes.get(inNode));
 			}
 			
 			for (node outNode : outNodes.keySet()) {
 				int oldDis =outNodes.get(outNode);
 				outNodes.replace(outNode,oldDis+reWeightArray[node.nodeId-1]-reWeightArray[outNode.nodeId-1]);
+//				System.out.println(node.nodeId+" to "+ outNode.nodeId +" = " + outNodes.get(outNode));
 			}
 		}
 	}
@@ -103,28 +114,27 @@ public class JohnsonASAP {
 		nodesList.remove(sourceNode);
 		for (node node : nodesList) {
 			node.getINodes().remove(sourceNode);
-			node.getoutNodes().remove(sourceNode);
+//			node.getoutNodes().remove(sourceNode);
 		}
 	}
 	
 	//重置每个node的distance
 	private static void resetDijkstraDistance(ArrayList<node> nodesList ) {
 		for (node node : nodesList) {
-			node.dijkDistance =0;
+			node.dijkDistance =Integer.MAX_VALUE/3;
 			node.explored =false;
 		}
 	}
 	
 	//返回真实的最小值
-	private static int returnMin(ArrayList<node>nodesList ,int[] reweightArray , int startID ) {
-		node startNode = nodesList.get(startID -1);
+	private static int returnMin(ArrayList<node>nodesList ,int[] reweightArray ,node startNode) {
 		int pU = reweightArray[startNode.nodeId-1];
 		for (node node : nodesList) {
 			int pV = reweightArray[node.nodeId-1];
 			node.dijkDistance = node.dijkDistance+pV-pU;  
 		}
 		Collections.sort(nodesList);
-		
+		System.out.println("本轮最短路径值： "+nodesList.get(0).dijkDistance);
 		return nodesList.get(0).dijkDistance;
 	}
 }
@@ -145,7 +155,7 @@ class edge{
 		return this.tailId;
 	}
 	public void setTail(int tailId) {
-		this.headId =tailId;
+		this.tailId =tailId;
 	}
 	public int getHead() {
 		return this.headId;
