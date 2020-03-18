@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TspHeuristic {
+    /***
+     * 每次寻找最近的点且未遍历过的点为加入点
+     */
     static int nodeNum;
     static double totalDis=0;
     public static void main(String[] args) throws IOException {
@@ -41,7 +44,7 @@ public class TspHeuristic {
         }
         return tspNodes;
     }
-
+    //找到目前最近的点以及距离更新
     private static tspNode findNearest(ArrayList<tspNode> remainNodes, tspNode tail,ArrayList<Double>distance) {
         double shortestDis = Integer.MAX_VALUE;
         tspNode nearestNode = null;
