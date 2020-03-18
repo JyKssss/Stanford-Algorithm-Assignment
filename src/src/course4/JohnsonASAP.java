@@ -17,7 +17,7 @@ public class JohnsonASAP {
 	
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		ArrayList<edge> edgeList = readTxt("C:\\Users\\Junyuan Tan\\Desktop\\stanford_alg\\g3.txt");
+		ArrayList<edge> edgeList = readTxt("C:\\Users\\Junyuan Tan\\Desktop\\stanford_alg\\input_random_44_2048.txt");
 		ArrayList<node> nodeList = initialNodes(nodeNum, edgeList);
 		ArrayList<node> dijkstraList = new ArrayList<node>();
 		int min =Integer.MAX_VALUE;
