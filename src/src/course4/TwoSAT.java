@@ -11,6 +11,7 @@ import java.util.TreeMap;
 public class TwoSAT {
     static int nodeNum;
     static ArrayList<node> nodes =new ArrayList<>();
+    
     public static void main(String[] args) throws IOException {
         ArrayList<clause>clauses=readTxt("C:\\Users\\Junyuan Tan\\Desktop\\stanford_alg\\2sat3.txt");
         boolean allPositive=false;
