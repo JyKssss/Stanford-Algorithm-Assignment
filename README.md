@@ -1,4 +1,4 @@
-# Stanford_Algorithm_Assignment
+# Stanford-Algorithm-Assignment
 
 Stanford online algorithm courses on Coursera  
 
