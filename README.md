@@ -7,6 +7,8 @@ Stanford online algorithm courses on Coursera
 ## Course 2 Graph Search, Shortest Paths, and Data Structures  
 
 ## Course 3 Greedy Algorithms, Minimum Spanning Trees, and Dynamic Programming
+
+## Course 4 Shortest Paths Revisited, NP-Complete Problems and What To Do About Them
   
 <br>  
 
